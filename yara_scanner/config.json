@@ -1,0 +1,10 @@
+{
+    "scan_path": ["D:\\system_image"],
+    "hashes": [
+        "EE9E2816170E9441690EBEE28324F43046056712"
+    ],
+    "filenames": [
+        "InstDrv.bin"
+    ],
+	"max_file_limit": 5002400
+}
