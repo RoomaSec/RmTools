@@ -6,5 +6,5 @@
     "filenames": [
         "InstDrv.bin"
     ],
-	"max_file_limit": 5002400
+	"max_file_limit": 10737418240
 }
