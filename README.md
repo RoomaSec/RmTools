@@ -31,7 +31,7 @@
 ```
 1. 扫描内存马(任何在heap上的内存马,如cobalt strike、msf,xor、aes免杀loader等xxxoo变种)
 2. 标注内存中可疑的位置的进程、线程信息
-3. yara内存扫描
+3. yara内存扫描,默认规则扫描内存中是否存在ip、域名、PE文件
 4. 标注可疑的dll.如伪装成系统程序的dll、无数字签名的dll却加载到有数字签名的进程中
 5. 标注可疑的dll行为,如RPC dump lsass等
 6. 标注无数字签名的进程
