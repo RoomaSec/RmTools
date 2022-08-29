@@ -10,6 +10,21 @@
 3. ntfs stream流扫描,检测文件是否携带了ntfs stream数据
 4. 导出报告
 ```
+配置项注释:
+```
+{
+    "scan_path": ["D:\\system_image"], //扫描的目录.不要以\\结尾,可以是磁盘根目录
+    "hashes": [
+        "EE9E2816170E9441690EBEE28324F43046056712" //要找的文件的hash,这是个数组
+    ],
+    "filenames": [
+        "InstDrv.bin" //要找的文件名字,这是模糊匹配,这是个数组
+    ],
+	"max_file_limit": 5002400 //最大读取文件的大小,超过这个大小的文件不读取
+}
+```
+可以编辑yara_rules目录,从而让这个工具变成webshell扫描工具、木马病毒扫描工具、特定信息扫描工具等等.自己配置yara
+请确保有yara文件,否做工具无法运行
 
 2. door scanner
 这个是应急用的给朋友定制的,主要用途扫描持久化后门,功能列表:
@@ -25,9 +40,14 @@
 10. 对以上这些项目对接IOC进行检查,检查hash、IP、域名,标注可疑项目(需要自己申请APIKEY)
 11. 支持CSV报表导出
 ```
-
+配置项注释:
+```
+{
+    "apikey": "", //ioc的apikey,不配置默认不用ioc
+    "max_file_limit": 10737418240 //最大读取文件的大小,超过这个大小的文件不读取
+}
+```
 3. memory scan
-由于没做完,暂时不公开,请加群获取这个工具的咨询.
 这个是之前duckmemoryscan的进化版本,主要用途扫描内存后门,功能列表:
 ```
 1. 扫描内存马(任何在heap上的内存马,如cobalt strike、msf,xor、aes免杀loader等xxxoo变种)
@@ -40,7 +60,17 @@
 8. 在有IOC情报源的情况下,扫描危险进程、高危dll
 9. 支持CSV报表导出
 ```
-其他的功能还在制作中....
+配置项注释:
+```
+{
+    "apikey": "", //ioc的apikey,不配置默认不用ioc
+	"ioc_scan_dll": 0, //是否用IOC扫描DLL,如果扫描的话会给出dll文件的安全性,但是会慢
+    "max_file_limit": 5002400 //最大读取文件的大小,超过这个大小的文件不读取
+}
+
+```
+可以编辑yara_rules目录,默认yara检测cobalt strike的beacon.也可以写其他的规则,比如扫描内存中是否有IP地址、是否有域名啥的,看yara编写配置.
+请确保有yara文件,否做工具无法运行
 
 ### IOC情报源
 所有工具都依赖 https://metadefender.opswat.com/ 的IOC情报源,您需要注册后,编辑工具对应的config.json,将里面的apikey改成自己的即可.为空代表不使用IOC情报源.
