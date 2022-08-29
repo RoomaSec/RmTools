@@ -1,0 +1,137 @@
+/*
+YARA Rule Set
+Author: The DFIR Report
+Date: 2021-09-01
+Identifier: Cobalt Strike, a Defender’s Guide
+Reference: https://thedfirreport.com/2021/08/29/cobalt-strike-a-defenders-guide/
+*/
+
+import "pe"
+
+rule CS_default_exe_beacon_stager {
+meta:
+description = "Remote CS beacon execution as a service - spoolsv.exe"
+author = "TheDFIRReport"
+date = "2021-07-13"
+hash1 = "f3dfe25f02838a45eba8a683807f7d5790ccc32186d470a5959096d009cc78a2"
+strings:
+$s1 = "windir" fullword ascii
+$s2 = "rundll32.exe" fullword ascii
+$s3 = "VirtualQuery failed for %d bytes at address %p" fullword ascii
+$s4 = "msvcrt.dll" fullword wide
+condition:
+uint16(0) == 0x5a4d and filesize < 800KB and (pe.imphash() == "93f7b1a7b8b61bde6ac74d26f1f52e8d" and
+3 of them ) or ( all of them )
+}
+
+rule tdr615_exe { 
+meta: 
+description = "Cobalt Strike on beachhead: tdr615.exe" 
+author = "TheDFIRReport" 
+reference = "https://thedfirreport.com/2021/08/01/bazarcall-to-conti-ransomware-via-trickbot-and-cobalt-strike/" 
+date = "2021-07-07" 
+hash1 = "12761d7a186ff14dc55dd4f59c4e3582423928f74d8741e7ec9f761f44f369e5" 
+strings: 
+$a1 = "AppPolicyGetProcessTerminationMethod" fullword ascii 
+$a2 = "I:\\RoDcnyLYN\\k1GP\\ap0pivKfOF\\odudwtm30XMz\\UnWdqN\\01\\7aXg1kTkp.pdb" fullword ascii 
+$b1 = "ealagi@aol.com0" fullword ascii 
+$b2 = "operator co_await" fullword ascii 
+$b3 = "GetModuleHandleRNtUnmapViewOfSe" fullword ascii 
+$b4 = "RtlExitUserThrebNtFlushInstruct" fullword ascii 
+$c1 = "Jersey City1" fullword ascii 
+$c2 = "Mariborska cesta 971" fullword ascii 
+condition: 
+uint16(0) == 0x5a4d and filesize < 10000KB and 
+any of ($a* ) and 2 of ($b* ) and any of ($c* ) 
+}
+import "pe"
+
+rule CS_DLL {
+meta:
+description = "62.dll"
+author = "TheDFIRReport"
+reference = "https://thedfirreport.com/2021/08/01/bazarcall-to-conti-ransomware-via-trickbot-and-cobalt-strike/"
+date = "2021-07-07"
+hash1 = "8b9d605b826258e07e63687d1cefb078008e1a9c48c34bc131d7781b142c84ab"
+strings:
+$s1 = "Common causes completion include incomplete download and damaged media" fullword ascii
+$s2 = "StartW" fullword ascii
+$s4 = ".rdata$zzzdbg" fullword ascii
+condition:
+uint16(0) == 0x5a4d and filesize < 70KB and ( pe.imphash() == "42205b145650671fa4469a6321ccf8bf" )
+or (all of them)
+}
+
+rule cobalt_strike_TSE28DF {
+meta:
+description = "exe - file TSE28DF.exe"
+author = "The DFIR Report"
+reference = "https://thedfirreport.com"
+date = "2021-01-05"
+hash1 = "65282e01d57bbc75f24629be9de126f2033957bd8fe2f16ca2a12d9b30220b47"
+strings:
+$s1 = "mneploho86.dll" fullword ascii
+$s2 = "C:\\projects\\Project1\\Project1.pdb" fullword ascii
+$s3 = "AppPolicyGetProcessTerminationMethod" fullword ascii
+$s4 = "AppPolicyGetThreadInitializationType" fullword ascii
+$s5 = "boltostrashno.nfo" fullword ascii
+$s6 = "operator<=>" fullword ascii
+$s7 = "operator co_await" fullword ascii
+$s8 = ".data$rs" fullword ascii
+$s9 = "tutoyola" fullword ascii
+$s10 = "api-ms-win-appmodel-runtime-l1-1-2" fullword wide
+$s11 = "vector too long" fullword ascii
+$s12 = "wrong protocol type" fullword ascii /* Goodware String - occured 567 times */
+$s13 = "network reset" fullword ascii /* Goodware String - occured 567 times */
+$s14 = "owner dead" fullword ascii /* Goodware String - occured 567 times */
+$s15 = "connection already in progress" fullword ascii /* Goodware String - occured 567 times */
+$s16 = "network down" fullword ascii /* Goodware String - occured 567 times */
+$s17 = "protocol not supported" fullword ascii /* Goodware String - occured 568 times */
+$s18 = "connection aborted" fullword ascii /* Goodware String - occured 568 times */
+$s19 = "network unreachable" fullword ascii /* Goodware String - occured 569 times */
+$s20 = "host unreachable" fullword ascii /* Goodware String - occured 571 times */
+condition:
+uint16(0) == 0x5a4d and filesize < 700KB and
+( pe.imphash() == "ab74ed3f154e02cfafb900acffdabf9e" or all of them )
+}
+
+rule CS_encrypted_beacon_x86 {
+meta:
+author = "Etienne Maynier tek@randhome.io"
+strings:
+$s1 = { fc e8 ?? 00 00 00 }
+$s2 = { 8b [1-3] 83 c? 04 [0-1] 8b [1-2] 31 }
+condition:
+$s1 at 0 and $s2 in (0..200) and filesize < 300000
+}
+
+rule CS_encrypted_beacon_x86_64 {
+meta:
+author = "Etienne Maynier tek@randhome.io"
+strings:
+$s1 = { fc 48 83 e4 f0 eb 33 5d 8b 45 00 48 83 c5 04 8b }
+condition:
+$s1 at 0 and filesize < 300000
+}
+
+rule CS_beacon {
+meta:
+author = "Etienne Maynier tek@randhome.io"
+
+strings:
+$s1 = "%02d/%02d/%02d %02d:%02d:%02d" ascii
+$s2 = "%s as %s\\%s: %d" ascii
+$s3 = "Started service %s on %s" ascii
+$s4 = "beacon.dll" ascii
+$s5 = "beacon.x64.dll" ascii
+$s6 = "ReflectiveLoader" ascii
+$s7 = { 2e 2f 2e 2f 2e 2c ?? ?? 2e 2c 2e 2f }
+$s8 = { 69 68 69 68 69 6b ?? ?? 69 6b 69 68 }
+$s9 = "%s (admin)" ascii
+$s10 = "Updater.dll" ascii
+$s11 = "LibTomMath" ascii
+$s12 = "Content-Type: application/octet-stream" ascii
+
+condition:
+6 of them and filesize < 300000
+}

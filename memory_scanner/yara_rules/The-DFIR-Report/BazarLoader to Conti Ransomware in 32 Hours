@@ -1,0 +1,58 @@
+/*
+YARA Rule Set
+Author: The DFIR Report
+Date: 2021-09-01
+Identifier: BazarLoader to Conti Ransomware in 32 Hours
+Reference: https://thedfirreport.com/2021/09/13/bazarloader-to-conti-ransomware-in-32-hours/
+*/
+
+/* Rule Set ----------------------------------------------------------------- */
+
+rule case_5087_start_bat { 
+   meta: 
+      description = "Files - file start.bat" 
+      author = "The DFIR Report" 
+      reference = "https://thedfirreport.com" 
+      date = "2021-08-30" 
+      hash1 = "63de40c7382bbfe7639f51262544a3a62d0270d259e3423e24415c370dd77a60" 
+   strings: 
+      $x1 = "powershell.exe Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force" fullword ascii 
+      $x2 = "powershell.exe -executionpolicy remotesigned -File .\\Get-DataInfo.ps1 %method" fullword ascii 
+      $x3 = "powershell.exe -executionpolicy remotesigned -File .\\Get-DataInfo.ps1 %1)" fullword ascii 
+      $s4 = "set /p method=\"Press Enter for collect [all]:  \"" fullword ascii 
+      $s5 = "echo \"Please select a type of info collected:\"" fullword ascii 
+      $s6 = "echo \"all ping disk soft noping nocompress\"" fullword ascii 
+   condition: 
+      filesize < 1KB and all of them 
+} 
+rule case_5087_7A86 { 
+   meta: 
+      description = "Files - file 7A86.dll" 
+      author = "The DFIR Report" 
+      reference = "https://thedfirreport.com" 
+      date = "2021-08-30" 
+      hash1 = "9d63a34f83588e208cbd877ba4934d411d5273f64c98a43e56f8e7a45078275d" 
+   strings: 
+      $s1 = "ibrndbiclw.dll" fullword ascii 
+      $s2 = "AppPolicyGetProcessTerminationMethod" fullword ascii 
+      $s3 = "Type Descriptor'" fullword ascii 
+      $s4 = "operator co_await" fullword ascii 
+   condition: 
+      uint16(0) == 0x5a4d and filesize < 500KB and all of them 
+} 
+
+ rule case_5087_24f692b4ee982a145abf12c5c99079cfbc39e40bd64a3c07defaf36c7f75c7a9 { 
+   meta: 
+      description = "Files - file 24f692b4ee982a145abf12c5c99079cfbc39e40bd64a3c07defaf36c7f75c7a9.exe" 
+      author = "The DFIR Report" 
+      reference = "https://thedfirreport.com" 
+      date = "2021-08-30" 
+      hash1 = "24f692b4ee982a145abf12c5c99079cfbc39e40bd64a3c07defaf36c7f75c7a9" 
+   strings: 
+      $s1 = "fbtwmjnrrovmd.dll" fullword ascii 
+      $s2 = "AppPolicyGetProcessTerminationMethod" fullword ascii 
+      $s3 = " Type Descriptor'" fullword ascii 
+      $s4 = "operator co_await" fullword ascii 
+   condition: 
+      uint16(0) == 0x5a4d and filesize < 900KB and all of them 
+}
