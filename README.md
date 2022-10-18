@@ -86,6 +86,14 @@ memory scanner支持windows7了!现在windows7 sp1与windows 2008能使用此工
 可以编辑yara_rules目录,默认yara检测cobalt strike的beacon.也可以写其他的规则,比如扫描内存中是否有IP地址、是否有域名啥的,看yara编写配置.
 请确保有yara文件,否做工具无法运行
 
+4. 待做项目:
+```
+由于目前工作繁忙原因,以下东西在待做列表中,按照顺序,优先实现.请star这个项目保持关注:
+1.yara scanner for linux
+2.door scanner for linux
+3.memory scanner for linux
+4.weblog scanner
+```
 ### IOC情报源
 所有工具都依赖 https://metadefender.opswat.com/ 的IOC情报源,您需要注册后,编辑工具对应的config.json,将里面的apikey改成自己的即可.为空代表不使用IOC情报源.
 
