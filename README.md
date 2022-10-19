@@ -48,7 +48,7 @@ memory scanner支持windows7了!现在windows7 sp1与windows 2008能使用此工
 10.[beta测试版]prefetch扫描,获取最近的程序执行记录[最低支持: XP]
 11.[beta测试版]runmru扫描,获取所有用户最近的通过"win+r运行"执行的程序[最低支持: XP]
 12.[beta测试版]shimcache扫描,获取最近程序执行记录[最低支持: XP]
-13.*[beta测试版]AppCompatFlags扫描,获取最近程序执行记录[最低支持: XP]
+13.[beta测试版]AppCompatFlags扫描,获取最近程序执行记录[最低支持: XP]
 14.*[beta测试版]Muicache扫描,获取最近程序执行记录[最低支持: XP]
 15.*[beta测试版]rdp服务(3389)对外远程链接记录[最低支持: XP]
 16.*[beta测试版]rdp服务(3389)对内远程链接记录[最低支持: XP]
