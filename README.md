@@ -2,6 +2,7 @@
 蓝队应急工具  
 防呆提示: 必须右键以管理员运行此工具.否做功能会失效  
 最低版本: windows7 x64  
+
 ### 更新日志
 2022/10/18:  
 door scanner推出测试版,测试版增加prefetch搜集功能,修复了一些bug
@@ -56,7 +57,22 @@ memory scanner支持windows7了!现在windows7 sp1与windows 2008能使用此工
 18. 支持CSV报表导出
 ```
 *代表正在内测稳定性,暂不公布,加入社区一起内测
+
+ 好消息!离线扫描脚本已经就绪,支持离线云查扫描!
+
+编辑`offline_scan.py` 填入你的API,然后选择要打开的CSV文件
+
+```
+headers = {
+    'apikey': "你的API key"
+}
+csvfile = open('./shimcache.csv', 'r')
+```
+
+就可以把隔离网的进程信息进行离线云查扫描了!
+
 配置项注释:
+
 ```
 {
     "apikey": "", //ioc的apikey,不配置默认不用ioc
