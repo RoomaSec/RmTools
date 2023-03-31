@@ -115,6 +115,14 @@ csvfile = open('./shimcache.csv', 'r')
 ### IOC情报源
 所有工具都依赖 https://metadefender.opswat.com/ 的IOC情报源,您需要注册后,编辑工具对应的config.json,将里面的apikey改成自己的即可.为空代表不使用IOC情报源.
 
+## Yara规则来源
+
+Yara规则来自:
+
+https://github.com/elastic/protections-artifacts
+
+
+
 ### 免责声明【使用本工具则代表同意】
 本系列工具会对系统磁盘进行读写(找文件、扫文件)等,硬盘不好的电脑会卡顿,如果恰好硬盘年久失修或者其他原因啥的用了本工具有一定几率会被读坏(比如10年老硬盘,本来快坏了、或者【在扫描磁盘的时候被断电了】这种情况)  
 因为本系列工具造成的【数据损失】、【磁盘损坏】,本工具的作者、组织不负任何责任!!!!!!
