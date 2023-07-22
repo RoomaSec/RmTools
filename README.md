@@ -4,6 +4,11 @@
 最低版本: windows7 x64  
 
 ### 更新日志
+
+2023/7/22:
+
+yara scanner推出测试版,多线程扫描,大量优化改进,5分钟扫描完全盘.支持导出报表,具体可以看`yara scanner beta`目录
+
 2022/10/18:  
 door scanner推出测试版,测试版增加prefetch搜集功能,修复了一些bug
 
