@@ -1,0 +1,31 @@
+{
+  "use_log": 0,
+  "scan_file_thread": 60,
+  "only_scan_suffix": 1,
+  "scan_file_suffix": [
+    ".exe",
+    ".dll",
+    ".sys",
+    ".js",
+    ".jsp",
+    ".php",
+    ".asp",
+    ".aspx",
+    ".cmd",
+    ".bat",
+    ".vbs",
+    ".vbe",
+    ".vb",
+    ".ps1",
+    ".psm1",
+    ".wsh",
+    ".vbscript",
+    ".wsf",
+    ".eml"
+  ],
+  "scan_path": ["C:\\"],
+  "skip_scan_paths": ["windows\\WinSxS", "Windows\\Microsoft.NET", "Windows\\assembly", "Program Files\\WindowsApps", "Windows\\servicing", "Windows\\Installer"],
+  "hashes": ["EE9E2816170E9441690EBEE28324F43046056712"],
+  "filenames": ["InstDrv.bin"],
+  "max_file_limit": 5002400
+}
