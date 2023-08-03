@@ -5,6 +5,10 @@
 
 ### 更新日志
 
+2023/8/3:
+
+door_scanner-alpha更新 ioc扫描 支持银狐扫描
+
 2023/7/22:
 
 yara scanner推出测试版,多线程扫描,大量优化改进,5分钟扫描完全盘.支持导出报表,具体可以看`yara scanner beta`目录
